@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CondoMinicator.Models.Condominio>
+
+@{
+    ViewBag.Title = "Cadastro de Condomínios";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Novo Condomínio", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Administradora.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Responsavel.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Administradora.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Responsavel.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,74 @@
+﻿@model CondoMinicator.Models.Comunicado
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Comunicado</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Usuario_de_ID, "Usuario_de_ID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Usuario_de_ID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Usuario_de_ID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Usuario_para_ID, "Usuario_para_ID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Usuario_para_ID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Usuario_para_ID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CondominioID, "CondominioID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CondominioID", String.Empty)
+                @Html.ValidationMessageFor(model => model.CondominioID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssuntoID, "AssuntoID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AssuntoID", String.Empty)
+                @Html.ValidationMessageFor(model => model.AssuntoID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mensagem, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mensagem)
+                @Html.ValidationMessageFor(model => model.Mensagem)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

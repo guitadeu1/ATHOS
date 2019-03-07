@@ -1,0 +1,123 @@
+﻿@model CondoMinicator.Models.Comunicado
+
+@{
+    ViewBag.Title = "Enviar novo comunicado";
+}
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Enviar novo comunicado</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Usuario_de_ID, "De:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Usuario_de_ID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Usuario_de_ID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CondominioID, "Condomínio:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CondominioID", String.Empty)
+                @Html.ValidationMessageFor(model => model.CondominioID)
+                @*@Html.DropDownListFor(x => x.CondominioID, Model.Condominios, new { disabled = "disabled" })*@
+                @*@Html.HiddenFor(x => x.CondominioID)*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssuntoID, "Assunto:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AssuntoID", String.Empty)
+                @Html.ValidationMessageFor(model => model.AssuntoID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Usuario_para_ID, "Para:", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Usuario_para_ID", String.Empty)
+                @Html.ValidationMessageFor(model => model.Usuario_para_ID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mensagem, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mensagem)
+                @Html.ValidationMessageFor(model => model.Mensagem)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enviar" class="btn btn-default" />
+                @Html.ActionLink("Cancelar", "../Home")
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $('#Usuario_de_ID').change(function () {
+                var De_ID = $("#Usuario_de_ID").val();
+                var assunto_ID = $("#AssuntoID").val();
+                var CondominiosDropDownn = $('#CondominioID');
+                    if (De_ID != null && De_ID != '' && De_ID > 0) {
+                        $.getJSON('@Url.Action("GetCondominioUsuario")', { Usuario_de_ID: De_ID }, function (condominio_id) {
+                            if (condominio_id != null)
+                            {
+                                $('#CondominioID').val(condominio_id);
+                                if (assunto_ID != null) {
+                                    $('#AssuntoID').change();
+                                }
+                            };
+                        });
+                    } else {
+                        $('#CondominioID').val(0);
+                        $('#Usuario_para_ID').val(0);
+                    }
+        });
+
+        $('#AssuntoID').change(function () {
+            var assunto_ID = $("#AssuntoID").val();
+            var condominio_ID = $("#CondominioID").val();
+            var ParaDropDownn = $('#Usuario_para_ID');
+            ParaDropDownn.empty();
+            if (assunto_ID != null && assunto_ID != '' && assunto_ID > 0 &&
+               condominio_ID != null && condominio_ID != '' && condominio_ID > 0) {
+                $.getJSON('@Url.Action("GetUsuariosPorAssuntoCondominio")', { AssuntoID: assunto_ID, CondominioID: condominio_ID }, function (usuarios) {
+
+                       if (usuarios != null && !jQuery.isEmptyObject(usuarios))
+                       {
+                           ParaDropDownn.append($('<option/>', {
+                               value: null,
+                               text: ""
+                           }));
+                           $.each(usuarios, function (index, region) {
+                               ParaDropDownn.append($('<option/>', {
+                                   value: region.Value,
+                                   text: region.Text
+                               }));
+                               ParaDropDownn.val(usuarios[0].Value);
+                           });
+                       };
+
+                });
+            }
+        });
+        //$('#CondominioID').prop('disabled', true);
+        //$('#Usuario_para_ID').prop('disabled', true);
+    </script>
+}

@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Sobre CondoMinicator";
+}
+
+<script src="~/Scripts/jquery-1.10.2.js"></script> 
+
+<h2>@ViewBag.Title.</h2>
+<h3>Sistemas desenvolvido para envio e controle de comunicação condominial</h3>
+
+<p>Tecnologias utilizadas: </p>
+
+<div class="list-group">
+    <a href="#" class="list-group-item disabled">- ASP.NET com MVC 5.0;</a>
+    <a href="#" class="list-group-item">- Entity Framework 6.2;</a>
+    <a href="#" class="list-group-item">- LocalDB com Sql Express;</a>
+    <a href="#" class="list-group-item">- Front-end com bootstrap 3.0;</a>
+</div>
+
+<script>
+
+    $(".list-group-item")
+        .css('transition', 'all 0.3s ease-in')
+        .hover(function () {
+            $(this).css('transform', 'scale3d(1.05,1.4,5)');
+        }, function () {
+            $(this).css('transform', 'scale3d(1.0,1.0,5)');
+        });
+
+</script>

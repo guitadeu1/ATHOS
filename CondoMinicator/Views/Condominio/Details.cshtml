@@ -1,0 +1,42 @@
+﻿@model CondoMinicator.Models.Condominio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Condominio</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Administradora.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Administradora.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responsavel.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Responsavel.Tipo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Voltar", "Index")
+</p>

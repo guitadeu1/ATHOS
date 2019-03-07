@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CondoMinicator.Models.Assunto>
+
+@{
+    ViewBag.Title = "Cadastro de Assuntos";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Novo Assunto", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

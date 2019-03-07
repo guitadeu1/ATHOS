@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CondoMinicator.Models.Usuario>
+
+@{
+    ViewBag.Title = "Cadastro de Usuários";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Novo Usuário", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Condominio.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario_Tipo.Tipo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Condominio.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuario_Tipo.Tipo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
